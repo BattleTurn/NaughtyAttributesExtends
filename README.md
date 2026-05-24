@@ -19,6 +19,7 @@ Unity **2022.3** or later versions. Don't forget to include the NaughtyAttribute
 1. You can install via git url by adding this entry in your **manifest.json**
 ```
 "com.dbrizov.naughtyattributes": "https://github.com/BattleTurn/NaughtyAttributesExtends.git#upm"
+```
 
 ## Documentation
 - [Documentation](https://naughtyattributes.com/)
