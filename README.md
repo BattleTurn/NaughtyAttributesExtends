@@ -16,15 +16,9 @@ If you want all of the attributes to work in your custom editors, however, you m
 Unity **2022.3** or later versions. Don't forget to include the NaughtyAttributes namespace.
 
 ## Installation
-1. The package is available on the [openupm registry](https://openupm.com). You can install it via [openupm-cli](https://github.com/openupm/openupm-cli).
+1. You can install via git url by adding this entry in your **manifest.json**
 ```
-openupm add com.dbrizov.naughtyattributes
-```
-2. You can also install via git url by adding this entry in your **manifest.json**
-```
-"com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
-```
-3. You can also download it from the [Asset Store](https://assetstore.unity.com/packages/tools/utilities/naughtyattributes-129996)
+"com.dbrizov.naughtyattributes": "https://github.com/BattleTurn/NaughtyAttributesExtends.git#upm"
 
 ## Documentation
 - [Documentation](https://naughtyattributes.com/)
@@ -610,7 +604,7 @@ public class NaughtyComponent : MonoBehaviour
 }
 ```
 
-![inspector](https://github.com/dbrizov/NaughtyAttributes/blob/master/Assets/NaughtyAttributes/Documentation~/MinValueMaxValue_Inspector.gif)
+![inspector](https://github.com/BattleTurn/NaughtyAttributesExtends/blob/master/Assets/NaughtyAttributes/Documentation~/MinValueMaxValue_Inspector.gif)
 
 ### Required
 Used to remind the developer that a given reference type field is required.
