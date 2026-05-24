@@ -584,7 +584,7 @@ public class NaughtyComponent : MonoBehaviour
 Used for validating the fields. A field can have infinite number of validator attributes.
 
 ### MinValue / MaxValue
-Clamps integer and float fields.
+Clamps integer and float fields. The MinValue/MaxValue attributes can accept either a constant numeric value (e.g. 0, 1.5f) or the name of another field, property, or a parameterless function that returns a numeric value — use nameof(...) to reference members safely. When a name is provided, the referenced member is evaluated to obtain the min/max value at edit-time/runtime.
 
 ```csharp
 public class NaughtyComponent : MonoBehaviour
@@ -594,6 +594,19 @@ public class NaughtyComponent : MonoBehaviour
 
 	[MinValue(0.0f)]
 	public float myFloat;
+
+	[MinValue("minFloat"), MaxValue("maxFloat")]
+	public float myFloatThroughFieldName;
+
+	[MinValue(nameof(minFloatProperty)), MaxValue(nameof(maxFloatProperty))]
+	public float myFloatThroughPropertyName;
+
+
+	private float minFloat = -1;
+	private float maxFloat = 1;
+
+	private float minFloatProperty => minFloat;
+	private float maxFloatProperty => maxFloat;
 }
 ```
 
