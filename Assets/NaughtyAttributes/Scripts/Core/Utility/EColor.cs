@@ -15,7 +15,8 @@ namespace NaughtyAttributes
         Green,
         Blue,
         Indigo,
-        Violet
+        Violet,
+        Custom
     }
 
     public static class EColorExtensions

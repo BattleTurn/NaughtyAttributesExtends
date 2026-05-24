@@ -12,9 +12,33 @@ namespace NaughtyAttributes.Test
         public ProgressBarNest1 nest1;
 
         [Header("Dynamic ProgressBar")]
-        [ProgressBar("Elixir", "maxElixir", color: EColor.Violet)]
+        [ProgressBar("Elixir", nameof(maxElixir), color: EColor.Violet)]
         public int elixir = 50;
         public int maxElixir = 100;
+
+        [Header("Custom Color ProgressBar")]
+        [ProgressBar("Experience", 100, colorName: nameof(GetProgressBarColor))]
+        public float experience = 75.0f;
+
+        public Color GetProgressBarColor()
+        {
+            // Full should be green, near 0 should be orange
+            float t = Mathf.Clamp01(experience / 100f);
+            Color orange = new Color(1f, 0.5f, 0f);
+
+            if (t <= 0f) return orange;
+
+            // First half: orange -> yellow
+            if (t <= 0.5f)
+            {
+                float ti = t / 0.5f;
+                return Color.Lerp(orange, Color.yellow, ti);
+            }
+
+            // Second half: yellow -> green
+            float ti2 = (t - 0.5f) / 0.5f;
+            return Color.Lerp(Color.yellow, Color.green, ti2);
+        }
     }
 
     [System.Serializable]

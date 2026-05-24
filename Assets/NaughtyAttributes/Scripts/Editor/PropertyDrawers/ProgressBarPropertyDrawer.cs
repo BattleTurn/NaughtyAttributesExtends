@@ -37,7 +37,7 @@ namespace NaughtyAttributes.Editor
             {
                 var fillPercentage = value / CastToFloat(maxValue);
                 var barLabel = (!string.IsNullOrEmpty(progressBarAttribute.Name) ? "[" + progressBarAttribute.Name + "] " : "") + valueFormatted + "/" + maxValue;
-                var barColor = progressBarAttribute.Color.GetColor();
+                Color barColor = progressBarAttribute.Color != EColor.Custom ? progressBarAttribute.Color.GetColor() : PropertyUtility.GetValue<Color>(property, progressBarAttribute.ColorName);
                 var labelColor = Color.white;
 
                 var indentLength = NaughtyEditorGUI.GetIndentLength(rect);
