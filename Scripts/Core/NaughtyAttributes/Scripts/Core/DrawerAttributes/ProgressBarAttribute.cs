@@ -45,18 +45,20 @@ namespace NaughtyAttributes
         {
         }
 
-        private ProgressBarAttribute(string name, string maxValueName, string colorName)
+        public ProgressBarAttribute(string name, string maxValueName, string colorName)
         {
             Name = name;
             MaxValueName = maxValueName;
             ColorName = colorName;
+            Color = EColor.Custom;
         }
 
-        private ProgressBarAttribute(string name, float maxValue, string colorName)
+        public ProgressBarAttribute(string name, float maxValue, string colorName)
         {
             Name = name;
             MaxValue = maxValue;
             ColorName = colorName;
+            Color = EColor.Custom;
         }
     }
 }
