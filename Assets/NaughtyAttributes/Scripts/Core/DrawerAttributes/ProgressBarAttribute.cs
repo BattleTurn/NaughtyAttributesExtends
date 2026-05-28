@@ -10,6 +10,7 @@ namespace NaughtyAttributes
         public string MaxValueName { get; private set; }
         public EColor Color { get; private set; }
         public string ColorName { get; private set; }
+        public string HexColor { get; private set; }
 
         public ProgressBarAttribute(string name, float maxValue, EColor color = EColor.Blue)
         {
@@ -35,28 +36,30 @@ namespace NaughtyAttributes
         {
         }
 
-        public ProgressBarAttribute(string maxValueName, string colorName)
-            : this("", maxValueName, colorName)
+        public ProgressBarAttribute(string maxValueName, string hexColor = "", string colorName = "")
+            : this("", maxValueName, hexColor, colorName)
         {
         }
 
-        public ProgressBarAttribute(float maxValue, string colorName)
-            : this("", maxValue, colorName)
+        public ProgressBarAttribute(float maxValue, string hexColor = "", string colorName = "")
+            : this("", maxValue, hexColor, colorName)
         {
         }
 
-        public ProgressBarAttribute(string name, string maxValueName, string colorName)
+        public ProgressBarAttribute(string name, string maxValueName, string hexColor = "", string colorName = "")
         {
             Name = name;
             MaxValueName = maxValueName;
+            HexColor = hexColor;
             ColorName = colorName;
             Color = EColor.Custom;
         }
 
-        public ProgressBarAttribute(string name, float maxValue, string colorName)
+        public ProgressBarAttribute(string name, float maxValue, string hexColor = "", string colorName = "")
         {
             Name = name;
             MaxValue = maxValue;
+            HexColor = hexColor;
             ColorName = colorName;
             Color = EColor.Custom;
         }

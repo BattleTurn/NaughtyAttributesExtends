@@ -265,17 +265,39 @@ public class NaughtyComponent : MonoBehaviour
 ![inspector](https://github.com/dbrizov/NaughtyAttributes/blob/master/Assets/NaughtyAttributes/Documentation~/MinMaxSlider_Inspector.png)
 
 ### ProgressBar
+Displays a horizontal colored progress bar for numeric fields, showing the current value relative to a specified maximum. Options:
+
+- label: a string label shown next to the bar.
+- maxValue: maximum used to compute fill (literal or the name of another field/property).
+- color: an EColor enum value (e.g. EColor.Red) or a hexColor string (e.g. "#0000FF").
+- colorName: name of a method or field that returns a Color for runtime color selection.
+
+The bar updates in the inspector in real time and supports int and float fields. Use nameof(...) to reference other members for dynamic max or color.
+
 ```csharp
 public class NaughtyComponent : MonoBehaviour
 {
 	[ProgressBar("Health", 300, EColor.Red)]
 	public int health = 250;
 
-	[ProgressBar("Mana", 100, EColor.Blue)]
+	[ProgressBar("Mana", 100, hexColor: "#0000FF")]
 	public int mana = 25;
 
-	[ProgressBar("Stamina", 200, EColor.Green)]
+	[ProgressBar("Stamina", maxValueName: nameof(maxStaminaValue), colorName: nameof(GetProgressBarColor))]
 	public int stamina = 150;
+
+	public int maxStaminaValue = 200;
+
+	private Color GetProgressBarColor()
+	{
+		// Full should be green, near 0 should be orange
+		float t = Mathf.Clamp01((float)stamina / maxStaminaValue);
+		Color orange = Color.yellow;
+
+		if (t <= 0f) return orange;
+
+		return Color.Lerp(orange, Color.green, t);
+	}
 }
 ```
 

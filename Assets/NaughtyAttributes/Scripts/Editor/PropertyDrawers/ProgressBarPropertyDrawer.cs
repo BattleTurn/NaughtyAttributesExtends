@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Reflection;
+using System.Data;
 
 namespace NaughtyAttributes.Editor
 {
@@ -37,7 +38,7 @@ namespace NaughtyAttributes.Editor
             {
                 var fillPercentage = value / CastToFloat(maxValue);
                 var barLabel = (!string.IsNullOrEmpty(progressBarAttribute.Name) ? "[" + progressBarAttribute.Name + "] " : "") + valueFormatted + "/" + maxValue;
-                Color barColor = progressBarAttribute.Color != EColor.Custom ? progressBarAttribute.Color.GetColor() : PropertyUtility.GetValue<Color>(property, progressBarAttribute.ColorName);
+                Color barColor = GetColor(progressBarAttribute, property);
                 var labelColor = Color.white;
 
                 var indentLength = NaughtyEditorGUI.GetIndentLength(rect);
@@ -192,6 +193,27 @@ namespace NaughtyAttributes.Editor
             {
                 return (float)obj;
             }
+        }
+        
+        private Color GetColor(ProgressBarAttribute attribute, SerializedProperty property)
+        {
+            if (attribute.Color != EColor.Custom)
+            {
+                return attribute.Color.GetColor();
+            }
+            else if (!string.IsNullOrEmpty(attribute.ColorName))
+            {
+                return PropertyUtility.GetValue<Color>(property, attribute.ColorName);
+            }
+            else if (!string.IsNullOrEmpty(attribute.HexColor))
+            {
+                if (ColorUtility.TryParseHtmlString(attribute.HexColor, out Color color))
+                {
+                    return color;
+                }
+            }
+
+            throw new InvalidExpressionException($"Invalid color configuration for ProgressBarAttribute on field {property.name}. Please check if the Color is set to Custom and the ColorName or HexColor is correct.");
         }
     }
 }

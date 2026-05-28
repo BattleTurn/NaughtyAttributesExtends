@@ -11,16 +11,11 @@ namespace NaughtyAttributes.Test
         [Header("Nested ProgressBar")]
         public ProgressBarNest1 nest1;
 
-        [Header("Dynamic ProgressBar")]
-        [ProgressBar("Elixir", nameof(maxElixir), color: EColor.Violet)]
-        public int elixir = 50;
-        public int maxElixir = 100;
-
         [Header("Custom Color ProgressBar")]
         [ProgressBar("Experience", 100, colorName: nameof(GetProgressBarColor))]
         public float experience = 75.0f;
 
-        public Color GetProgressBarColor()
+        private Color GetProgressBarColor()
         {
             // Full should be green, near 0 should be orange
             float t = Mathf.Clamp01(experience / 100f);
@@ -28,23 +23,14 @@ namespace NaughtyAttributes.Test
 
             if (t <= 0f) return orange;
 
-            // First half: orange -> yellow
-            if (t <= 0.5f)
-            {
-                float ti = t / 0.5f;
-                return Color.Lerp(orange, Color.yellow, ti);
-            }
-
-            // Second half: yellow -> green
-            float ti2 = (t - 0.5f) / 0.5f;
-            return Color.Lerp(Color.yellow, Color.green, ti2);
+            return Color.Lerp(orange, Color.yellow, t);
         }
     }
 
     [System.Serializable]
     public class ProgressBarNest1
     {
-        [ProgressBar("Mana", 100, EColor.Blue)]
+        [ProgressBar("Mana", 100, hexColor: "#3474FF")]
         public float mana = 25.0f;
 
         public ProgressBarNest2 nest2;
@@ -53,7 +39,8 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class ProgressBarNest2
     {
-        [ProgressBar("Stamina", 100, EColor.Green)]
-        public float stamina = 75.0f;
+        [ProgressBar("Stamina", nameof(maxStaminaValue), EColor.Green)]
+        public int stamina = 50;
+        public int maxStaminaValue = 100;
     }
 }
